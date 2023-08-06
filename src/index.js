@@ -7,7 +7,7 @@ const app = express();
 app.disable("x-powered-by");
 
 // Settings
-const PORT = process.env.PORT ?? 4000;
+const PORT = process.env.PORT;
 
 // Middlewares
 app.use(morgan("dev"));

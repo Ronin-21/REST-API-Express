@@ -5,16 +5,18 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon ./src/index.js"
+    "server": "nodemon ./src/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
-    "mysql2": "^3.6.0"
+    "mysql2": "^3.6.0",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
+    "dotenv": "^16.3.1",
     "morgan": "^1.10.0",
     "nodemon": "^3.0.1"
   }

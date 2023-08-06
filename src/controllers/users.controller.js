@@ -1,4 +1,5 @@
 import { connection } from "../database/database.js";
+import { validatePartialUser, validateUser } from "../schemas/user.schema.js";
 
 // Set controllers
 
@@ -34,13 +35,13 @@ export const getUser = async (req, res) => {
 // Create a user
 export const addUser = async (req, res) => {
   try {
-    const { name, profession } = req.body;
+    const result = validateUser(req.body);
 
-    if (name === undefined || profession === undefined) {
-      res.status(401).json({ message: "Bad Request. Please fill all field." });
+    if (result.error) {
+      return res.status(400).json({ error: JSON.parse(result.error.message) });
     }
 
-    const newUser = { name, profession };
+    const newUser = result.data;
     await connection.query("INSERT INTO user SET ?", newUser);
     res.json({ message: "User added" });
   } catch (error) {
@@ -51,14 +52,15 @@ export const addUser = async (req, res) => {
 // Update a user
 export const updateUser = async (req, res) => {
   try {
-    const { id } = req.params;
-    const { name, profession } = req.body;
+    const result = validatePartialUser(req.body);
 
-    if (id === undefined || name === undefined || profession === undefined) {
-      res.status(401).json({ message: "Bad Request. Please fill all field." });
+    if (result.error) {
+      return res.status(400).json({ error: JSON.parse(result.error.message) });
     }
 
-    const updatedUser = { name, profession };
+    const { id } = req.params;
+    const updatedUser = result.data;
+
     await connection.query("UPDATE user SET ? WHERE id = ?", [updatedUser, id]);
     res.json({ message: "User changed" });
   } catch (error) {
