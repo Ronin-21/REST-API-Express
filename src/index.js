@@ -1,5 +1,4 @@
 import express from "express";
-import morgan from "morgan";
 import usersRoutes from "./routes/users.routes.js";
 import { config } from "dotenv";
 
@@ -13,7 +12,6 @@ app.disable("x-powered-by");
 const PORT = process.env.PORT;
 
 // Middlewares
-app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
