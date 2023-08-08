@@ -1,6 +1,9 @@
 import express from "express";
 import morgan from "morgan";
 import usersRoutes from "./routes/users.routes.js";
+import { config } from "dotenv";
+
+config();
 
 // Initilization
 const app = express();
